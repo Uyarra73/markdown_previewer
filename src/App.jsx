@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
-import { marked } from 'marked';
+import { useState } from 'react';
+import Markdown from "react-markdown";
 import './App.css';
 
 function App() {
   const [text, setText] = useState(`
-    # H1 
-    ## H2 
+    # H1
+    ## H2
+
     [This is a link](https://www.example.com)
 
-    \`<div></div>\`
+    \`code\`
 
     \`\`\`
     // This is a code block:
@@ -33,16 +34,6 @@ function App() {
     setText(e.target.value);
   }
 
-
-  // Configuración de marked para habilitar saltos de línea automáticos
-  marked.setOptions({
-    breaks: true,  // Para permitir saltos de línea
-    gfm: true,     // Soporte para GitHub Flavored Markdown
-    headerIds: false,  // Evitar IDs automáticos en encabezados
-  });
-
-  
-
   return (
     <div className='App'>
       <div className="container">
@@ -51,11 +42,9 @@ function App() {
       </div>
       <div className='container'>
         <h1>You can preview your code here</h1>
-        <div id="preview" 
-          dangerouslySetInnerHTML={{
-            __html: marked(text)  // Convertir el markdown a HTML
-          }}
-        ></div>
+        <div id="preview">
+          <Markdown>{text}</Markdown>
+        </div>
       </div>
     </div>
   );
